@@ -2,6 +2,7 @@ import sys
 import pymupdf
 
 DATE = "D:20000103120000Z"
+AUTHOR = "X"
 
 
 def main():
@@ -13,13 +14,13 @@ def main():
 
     doc = pymupdf.open(in_pdf)
     print(doc.metadata)
-    doc.set_metadata({"modDate": DATE, "creationDate": DATE, "modDate": DATE})
+    doc.set_metadata({"modDate": DATE, "creationDate": DATE, "modDate": DATE, "author": AUTHOR})
     doc.del_xml_metadata()
     print(doc.metadata)
 
     for page in doc.pages():
         for annot in page.annots():
-            annot.set_info(title='X', modDate=DATE, creationDate=DATE)
+            annot.set_info(title=AUTHOR, modDate=DATE, creationDate=DATE)
             annot.update()
             print(annot.info)
     doc.save(out_pdf, garbage=4)
